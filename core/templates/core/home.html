@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    {% load humanize %}
+    {% load static %}
+    {% block content %}
+  <script type="text/javascript">
+  function renderChart(vegalite_spec, div_id) {
+    // var opt = {"width" : w, "actions" : false}
+    var opt = {"actions" : false}
+    data = JSON.stringify(vegalite_spec)
+    var yourVlSpec = JSON.parse(data)
+    vegaEmbed(div_id, yourVlSpec, opt);
+  }
+  </script>
+    <link href="https://fonts.googleapis.com/css?family=Zilla+Slab+Highlight:400|Lora|Lato" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/vega@3"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-lite@2"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-embed@3"></script>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        color: #313647;
+        font-family: 'Lato', sans-serif;
+        display: grid;
+        height: 100vh;
+        grid-template-columns: 100%;
+        grid-template-rows: 600px 100%;
+      }
+
+      #header {
+        background-color: #F8F9F9;
+        /* border: 1px solid red; */
+      }
+
+      #header h1 {
+        font-family: ZillaSlabHighlight-Regular;
+        font-weight: 500;
+        font-size: 120px;
+        color: #4A4A4A;
+        text-align: center;
+        margin-bottom: 0px;
+      }
+
+      #header p {
+        font-family: Lato-Regular;
+        font-size: 20px;
+        color: #4A4A4A;
+        margin: 0 auto;
+        width: 40%;
+        min-width: 800px;
+      }
+
+      #header .author {
+        font-family: Lora-BoldItalic;
+        font-size: 20px;
+        color: #4A4A4A;
+        position: relative;
+      }
+
+      #main {
+        /* border: 1px solid orange; */
+      }
+
+      #main .detail {
+        /* border: 1px solid blue; */
+        margin-left: 20%;
+        margin-right: 20%;
+      }
+
+      #main h2 {
+        font-family: Lora-Bold;
+        font-size: 60px;
+        color: #4A4A4A;
+        margin-bottom: 0px;
+      }
+
+      #main p {
+        font-family: Lato-Regular;
+        font-size: 20px;
+        color: #4A4A4A;
+      }
+
+      #main button {
+        background-color: #C8C8C8;
+        height: 50px;
+        width: 100px;
+        color: white;
+        font-size: medium;
+        border: none;
+      }
+
+      #main button:hover {
+        background-color: #E6E6E6;
+        color: black;
+      }
+
+      #main .chart {
+          width: 100%;
+          margin-top: 50px;
+          text-align: center;
+          /* border: 1px solid green; */
+      }
+
+      #main .bar {
+        color: white;
+        height:25px;
+        text-indent: 5px;
+        max-width: 105%;
+      }
+
+      #category {
+        width: 400px auto;
+        font-family: Lora;
+        font-size: 16px;
+        border: 1px solid #979797;
+        height: 50px;
+        margin-top: 2%;
+        background-color: white;
+        -webkit-border-radius: 100px;
+        border-radius: 100px;
+        -webkit-appearance: none;
+        text-indent: 10px;
+        background-image: url({% static "down-arrow.png" %});
+        background-repeat: no-repeat;
+        background-position: right;
+      }
+
+      #tables {
+          /* border: 1px solid red; */
+          display: grid;
+          grid-template-columns: 50% 50%;
+          grid-template-rows: 100%;
+          margin-top: 50px;
+      }
+
+      #tables h3 {
+        margin: 0px;
+        font-family: Lora-Bold;
+        font-size: 20px;
+        margin-left: 8px;
+      }
+
+      #tables table {
+        border-collapse: collapse;
+        width: 90%;
+        font-family: Lora;
+        margin-bottom: 50px;
+      }
+
+      #tables th {
+        border-bottom: 1.7px solid black;
+        padding: 8px;
+        text-align: left;
+      }
+
+      #tables td {
+        padding: 8px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+      }
+
+      #tables td:hover {background-color:#f5f5f5;}
+
+      #footer {
+        background-color: #f5f5f5;
+      }
+
+      #footer p {
+        font-family: Lato-Regular;
+        font-size: 15;
+        color: #4A4A4A;
+        margin: 0 auto;
+        margin-top: 30px;
+        width: 60%;
+        min-width: 800px;
+      }
+
+    </style>
+    <title></title>
+  </head>
+  <body>
+    </script>
+        <div id="header">
+          <h1>Causes of Death in Australia</h1>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+          <p class="author">by Mitchell Lisle</p>
+        </div>
+        <div id="main">
+          <div class="detail">
+            <form method="get">
+              <div id="selections">
+                  {{ form.category }}
+              </div>
+            </form>
+            <!-- <h2>{{search_result.category}} <img src="{% static "{{search_result.category}}.png" %}" height="42" width="42"></h2> -->
+            <h2>{{search_result.category}}</h2>
+            <p>{{search_result.category_detail | safe}}</p>
+            <div id="tables">
+              <div id="male-table">
+                <h3 style="color: #4A90E2;">Males</h3>
+                <table>
+                    <tr>
+                        <th>Cause of Death</th>
+                        <th>2008-2017 Rate of Change*</th>
+                    </tr>
+                    {% for disorder in search_result.roc_chart.males %}
+                    <tr>
+                        <td>{{ disorder.cause_of_death_map }}</td>
+                        <td>
+                          <div class="bar" style="width:{{ disorder.pct_change }}%; background-color:#4A90E2">{{ disorder.pct_change }}%</div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </table>
+              </div>
+              <div id="female-table">
+                <h3 style="color: #50E3C2;">Females</h3>
+                <table>
+                    <tr>
+                        <th>Cause of Death</th>
+                        <th>2008-2017 Rate of Change*</th>
+                    </tr>
+                    {% for disorder in search_result.roc_chart.females %}
+                    <tr>
+                        <td>{{ disorder.cause_of_death_map }}</td>
+                        <td>
+                          <div class="bar" style="width:{{ disorder.pct_change }}%; background-color:#50E3C2">{{ disorder.pct_change }}%</div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </table>
+              </div>
+            </div>
+          </div>
+          <div id="timeseries_chart" class="chart"></div>
+          <script type="text/javascript">
+            renderChart({{search_result.timeseries_chart|safe}}, "#timeseries_chart");
+          </script>
+        </div>
+    {% endblock %}
+  </body>
+</html>
